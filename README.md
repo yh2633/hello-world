@@ -72,6 +72,59 @@ SICP Chapter 1
 
 (squrit 1243124)
 
+-------------------------1.7------------------------
+(define (average x y) 
+        (/ (+ x y) 2))
+
+(define (square x) 
+        (* x x))
+
+(define (abs x)
+        (if (< x 0)
+            (- x)
+            x))
+
+(define (iter guess x)
+        (if (good guess (improved guess x))
+        guess
+        (iter (improved guess x) x)))
+
+(define (good old_guess new_guess)
+        (> 0.0001 
+              (/ (abs (- old_guess new_guess)) old_guess)))
+      
+(define (improved guess x)
+        (average guess (/ x guess)))
+
+(define (sqit x) (iter 1 x))
+
+--------------------1.8 开三次方---------------------
+(define (average x y) 
+        (/ (+ x y) 2))
+
+(define (square x) 
+        (* x x))
+
+(define (abs x)
+        (if (< x 0)
+            (- x)
+            x))
+
+(define (iter guess x)
+        (if (good guess (improved guess x))
+        guess
+        (iter (improved guess x) x)))
+
+(define (good old_guess new_guess)
+        (> 0.0001 
+              (/ (abs (- old_guess new_guess)) old_guess)))
+      
+(define (improved guess x)
+        (/(+ (/ x (square guess)) (* 2 guess)) 3))
+
+(define (trit x) (iter 1 x))
+
+(trit 125)
 
 
 
