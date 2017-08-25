@@ -126,5 +126,47 @@ SICP Chapter 1
 
 (trit 125)
 
+--------------fib(n) [a b法]--------------
+
+(define (fib n)
+    (iter 0 1 n))
+(define (iter a b count)
+    (if (= count 0)
+        a 
+        (iter b (+ a b) (- count 1))))
+
+递归与迭代：递归每部引用自己并需记录过程；迭代更新常数
+
+---------------1.11 recursion---------------
+(define (f n)
+         (if (< n 3)
+             n 
+             (+ (f (- n 1)) (* 2 (f (- n 2))) (* 3 (f (- n 3))))))
+
+----------------1.11 iteration----------------
+(define (reit a b c count)
+        (if (< count 3)
+            (+ a (* 2 b) ( * 3 c))
+            (+ (reit (+ a (* 2 b) (* 3 c)) a b (- count 1)))))
+               
+(define (f n)
+        (if (< n 3)
+            n
+            (reit 2 1 0 n)))
+          
+(f 5)
+
+-------------------revise----------
+(define (reit a b c count)
+        (if (= count 3)
+            (+ a (* 2 b) ( * 3 c))
+            (+ (reit (+ a (* 2 b) (* 3 c)) a b (- count 1)))))
+               
+(define (f n)
+        (if (< n 3)
+            n
+            (reit 2 1 0 n)))
+          
+(f 3)
 
 
