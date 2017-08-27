@@ -169,4 +169,25 @@ SICP Chapter 1
           
 (f 3)
 
+------------------1.16 exponential iteration fast approach----------
+(define (square x)
+  (* x x))
+
+(define (itera evenp n odda)
+  (if (= n 0)
+      odda
+      (if (= (remainder n 2) 0)
+          (itera (square evenp) (/ n 2) odda)
+          (itera evenp (- n 1) (* evenp odda)))))
+        
+(define (expon b n)
+  (itera b n 1 ))
+
+**********注意迭代的方法以及后边的那个常量*****************
+
+
+
+
+
+
 
