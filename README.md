@@ -185,6 +185,44 @@ SICP Chapter 1
 
 **********注意迭代的方法以及后边的那个常量*****************
 
+-------------1.17------------ multiplication recuration----
+(define (even? x)
+        (if (= (remainder x 2) 0)))
+      
+(define (multrecur a b)
+  (if (= b 0)
+      0
+      (if (even? b)
+          (multrecur (+ a a) (/ b 2))
+          (+ a (multrecur a (- b 1) )))))
+
+需要多思考
+
+--------------1.18---------- multiplication iteration---
+(define (even? x)
+        (if (= (remainder x 2) 0)))
+      
+(define (muliter evenp n oddr)
+  (if (= n 0)
+      oddr
+      (if (even? n)
+        (muliter (+ evenp evenp) (/ n 2) oddr)
+        (muliter evenp (- n 1) (+ oddr evenp)))))
+
+(define (multipled a b)
+  (muliter a b 0))
+  
+  
+  
+
+
+
+
+
+
+
+
+
 
 
 
