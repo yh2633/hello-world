@@ -211,9 +211,108 @@ SICP Chapter 1
 
 (define (multipled a b)
   (muliter a b 0))
-  
-  
-  
+  
+-
+---------------1.19-----fib快速幂----------可以和1.16结合看（平方可以施用于数，也可以施用于process）--------
+
+(define (even? x)
+        (= (remainder x 2) 0))
+
+(define (square x) 
+        (* x x))
+
+(define (fibf a b p q n)
+  (cond ((= n 0) b)
+        ((even? n) (fibf a b (+ (square p) (square q)) (+ (square q) (* 2 p q)) (/ n 2)))
+        (else (fibf (+ (* b q) (* a q) (* a p)) (+ (* b p) (* a q)) p q (- n 1)))))
+
+(define (fastf n)
+  (fibf 1 0 0 1 n))
+
+------------fermat prime test------------------已经看出来事情开始难起来了-----------------注意括号！！！！！！！--第二个procedure真的很吊，包含了最小公约数和快速幂的算法
+
+(define (even? x)
+  (= (remainder x 2) 0))
+
+(define (expon base top n)
+  (cond ((= top 0) 1)
+        ((even? top)
+                (remainder (square (expon base (/ top 2) n)) n))
+        (else
+                (remainder (* base (expon base (- top 1) n)) n))))
+
+(define (fermat n)
+  (define (try-it a)
+    (= (expon a n n) a))
+  (try-it (+ 1 (random (- n 1)))))
+
+
+(define (test n count)
+  (cond ( (= count 0) true)
+        ((fermat n) (test n (- count 1)))
+        (else false)))
+
+
+        (else false)))
+--------------------------1.21----------smallestd
+(define (smallestd n)
+(define (devisor small)
+  (cond ((> (square small) n) n)
+        ((= (remainder n small) 0) small)
+        (else (devisor (+ small 1)))))
+  (devisor 2))
+
+
+------------1.22 .1-------------忙了一早上，勉强写出一个素数报名器，发现了一些昨天没搞懂的东西，第三部仍然没有很好的理解----------
+
+(define (range alpha n t)
+  (cond ((< n alpha) "finished")
+        ((not (= (remainder n 2) 0))
+            (test n t)
+            (newline)
+            (range alpha (- n 2) t))
+        (else (range alpha (- n 1) t))))
+        
+(define (even? x)
+  (= (remainder x 2) 0))
+
+(define (expon base top n)
+  (cond ((= top 0) 1)
+        ((even? top)
+                (remainder (square (expon base (/ top 2) n)) n))
+        (else
+                (remainder (* base (expon base (- top 1) n)) n))))
+
+(define (fermat n)
+  (define (try-it a)
+    (= (expon a n n) a))
+  (try-it (+ 1 (random (- n 1)))))
+
+
+(define (test n count)
+  (cond ( (= count 0) (display n))
+        ((fermat n) (test n (- count 1)))
+        (else (display "aint a prime"))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
