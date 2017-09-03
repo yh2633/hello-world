@@ -295,6 +295,110 @@ SICP Chapter 1
         (else (display "aint a prime"))))
 
 
+--然后，我并不知道这个错在哪里
+
+(define (remain base top n)
+  (cond ((= top 0) 1)
+        ((= (remainder top 2) 0)
+            (remainder (square (remain base (/ top 2) n) n)))
+        (else (remainder (* base (remain base (- top 1) n)) n))))
+      
+(define (fermat n)
+  (define (match a)
+    (= (remain a n n) a))
+  (match (+ (random (- n 1)) 1)))
+
+(define (testtimes n t)
+  (cond ((= t 0) (n) )
+        ((fermat n) (testtimes n (- t 1)))
+        (else false )))
+    
+
+
+
+----------------------------1.22 . 2----------整数之后的三个质数生成器
+(define (mdevisor d n)
+  (cond ((> (square d) n) n)
+        ((= (remainder n d) 0) d)
+        (else (mdevisor (+ d 1) n))))
+      
+(define (prime? n)
+  (if (= n (mdevisor 2 n)) 
+      true 
+      false))
+  
+(define (threes x count)
+  (cond ((= count 3) (display "like that?")(newline))
+        ((prime? (+ x 1)) (threes (+ x 1) (+ count 1)) (display (+ x 1))(newline))
+        (else (threes (+ x 1) count))))
+
+-----算时间----
+(define (mdevisor d n)
+  (cond ((> (square d) n) n)
+        ((= (remainder n d) 0) d)
+        (else (mdevisor (+ d 1) n))))
+      
+(define (prime n)
+  (if (= n (mdevisor 2 n)) 
+      true 
+      false))
+  
+(define (prime? x)
+(define (threes x count)
+  (cond ((= count 3) (display "like that?")(newline))
+        ((prime (+ x 1)) (threes (+ x 1) (+ count 1)) (display (+ x 1))(newline))
+        (else (threes (+ x 1) count))))
+  (threes x 0))
+
+(define (primetime x)
+  (let ((start-time (real-time-clock)))
+       (prime? x)
+       (- (real-time-clock) start-time)))
+  
+ 
+
+------------1.24 fast-prime----
+  
+(define (remain base top n)
+  (cond ((= top 0) 1)
+        ((even? top) (remainder (square (remain base (/ top 2) n)) n))
+        (else (remainder (* base (remain base (- top 1) n)) n))))
+
+(define (try-it n)
+  (define (dengyu a)
+    (= (remain a n n) a))
+  (dengyu (- (random (+ n 1)) 1)))
+
+(define (fast-test n)
+  (define (multitry t)
+    (cond ((= t 0) (display n))
+          ((try-it n) (multitry (- t 1)))
+          (else false))
+        )
+  (multitry 10))
+
+(define (prime? x)
+(define (threes x count)
+  (cond ((= count 0) (display "like that?")(newline))
+        ((fast-test (+ x 1)) (threes (+ x 1) (- count 1)) (display (+ x 1))(newline))
+        (else (threes (+ x 1) count))))
+  (threes x 3))
+
+(define (primetime x)
+  (let ((start-time (real-time-clock)))
+       (prime? x)
+       (- (real-time-clock) start-time)))
+      
+
+
+------------
+
+
+
+
+
+
+
 
 
 
